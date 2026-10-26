@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import type { AxiosRequestConfig, AxiosResponse, Method, ResponseType } from "axios";
+import type { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method, ResponseType } from "axios";
 
 const BACKEND_FALLBACK = "http://localhost:8080";
 
@@ -124,6 +124,14 @@ export const clientApiWithAuth = axios.create({
   baseURL,
   withCredentials: true,
 });
+
+// Демо без бэкенда (VITE_MOCK): вместо сети отвечает мок в браузере, остальная логика (refresh, ошибки) работает как есть.
+// Условие статическое, поэтому в обычной сборке код мока в бандл не попадает.
+if (import.meta.env.VITE_MOCK) {
+  const mockAdapter = async (config: InternalAxiosRequestConfig) => (await import("@/mock/adapter")).mockAdapter(config);
+  clientApi.defaults.adapter = mockAdapter;
+  clientApiWithAuth.defaults.adapter = mockAdapter;
+}
 
 let refreshPromise: Promise<void> | null = null;
 

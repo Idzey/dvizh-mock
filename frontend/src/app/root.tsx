@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./styles/app.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import { Toaster } from "sonner";
 import { MotionConfig } from "motion/react";
 import { ThemeProvider } from "./providers/theme-provider";
@@ -30,6 +31,8 @@ export const links: Route.LinksFunction = () => [
 const queryClient = new QueryClient({
   defaultOptions: { queries: { networkMode: "offlineFirst" }, mutations: { networkMode: "always" } },
 });
+
+const DemoBadge = import.meta.env.VITE_MOCK ? lazy(() => import("@/mock/ui/demo-badge")) : () => null;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -54,6 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <MotionConfig reducedMotion="user">{children}</MotionConfig>
             </AvatarBeaverContext.Provider>
             <Toaster position="top-right" offset={20} expand visibleToasts={3} />
+            {import.meta.env.VITE_MOCK && <Suspense fallback={null}><DemoBadge /></Suspense>}
           </ThemeProvider>
         </QueryClientProvider>
         <ScrollRestoration />

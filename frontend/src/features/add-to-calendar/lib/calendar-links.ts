@@ -25,6 +25,22 @@ const details = (e: CalendarEvent) => `Подробности и запись: $
 /** .ics с бэка: разовое — одно занятие, серия — все мои будущие занятия. */
 export const icsUrl = (eventId: string) => getEventsCalendarUrl(eventId);
 
+/** Скачивает .ics. В демо без бэкенда файл собирает мок и отдаёт через blob; иначе — обычная ссылка на бэк. */
+export async function downloadIcs(eventId: string) {
+  if (!import.meta.env.VITE_MOCK) {
+    window.location.href = icsUrl(eventId);
+    return;
+  }
+  const { clientApiWithAuth } = await import("@/shared/api/mutators/authMutator");
+  const response = await clientApiWithAuth.get<string>(icsUrl(eventId), { responseType: "text" });
+  const url = URL.createObjectURL(new Blob([response.data], { type: "text/calendar;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "event.ics";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
 /** На Android ссылка открывается в приложении Google Календаря. */
 export function googleCalendarUrl(e: CalendarEvent) {
   const params = new URLSearchParams({

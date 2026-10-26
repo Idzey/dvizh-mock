@@ -11,6 +11,10 @@ export default function useAlternativeBlock() {
   };
 
   const handleOAuth2 = (provider: string) => {
+    if (import.meta.env.VITE_MOCK) {
+      toast.info("В демо-версии вход через Яндекс и GitHub недоступен. Войдите логином и паролем.");
+      return;
+    }
     window.location.href = `${BACKEND_URL}/oauth2/authorization/${provider}`;
   };
 

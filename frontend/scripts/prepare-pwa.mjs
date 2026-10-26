@@ -23,6 +23,7 @@ await collect("fonts");
 await collect("icons");
 // Иллюстрации и иконки интерфейса из public/ (~0,9 МБ): без них офлайн-экраны остаются с битыми картинками.
 for (const entry of await readdir(output, { withFileTypes: true })) {
+  if (entry.isDirectory() && entry.name === "media") continue; // фото демо-стенда (~30 МБ) в офлайн-оболочку не кладём
   if (entry.isDirectory() && !["assets", "fonts", "icons"].includes(entry.name)) await collect(entry.name, IMAGE);
   else if (entry.isFile() && IMAGE.test(entry.name)) resources.push(`/${entry.name}`);
 }

@@ -4,7 +4,7 @@ import { CalendarPlus, Download } from "lucide-react";
 import { cn } from "cn";
 import { Button } from "@/shared/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog";
-import { googleCalendarUrl, icsUrl, outlookUrl, type CalendarEvent } from "../lib/calendar-links";
+import { downloadIcs, googleCalendarUrl, icsUrl, outlookUrl, type CalendarEvent } from "../lib/calendar-links";
 import { calendarPlatform } from "../lib/platform";
 
 const item =
@@ -28,7 +28,7 @@ export function AddToCalendarButton({ event, children = "В календарь",
   const fileNote = event.recurring ? "все ваши занятия серии" : undefined;
 
   if (platform === "ios") {
-    return <Button {...button} onClick={() => { window.location.href = icsUrl(event.eventId); }}>{children}</Button>;
+    return <Button {...button} onClick={() => { void downloadIcs(event.eventId); }}>{children}</Button>;
   }
 
   if (platform === "android") {
@@ -48,7 +48,7 @@ export function AddToCalendarButton({ event, children = "В календарь",
               </a>
             </Button>
             <Button asChild variant="soft" className="h-auto min-h-14 flex-col gap-0 py-2 text-base whitespace-normal">
-              <a href={icsUrl(event.eventId)} download onClick={() => setSheet(false)}>
+              <a href={icsUrl(event.eventId)} download onClick={(e) => { if (import.meta.env.VITE_MOCK) { e.preventDefault(); void downloadIcs(event.eventId); } setSheet(false); }}>
                 Другой календарь (файл .ics)
                 {fileNote && <span className="text-xs font-bold text-muted-foreground">{fileNote}</span>}
               </a>
@@ -90,7 +90,7 @@ export function AddToCalendarButton({ event, children = "В календарь",
           </DropdownMenu.Item>
           <DropdownMenu.Separator className="mx-2 my-1 h-0.5 bg-track" />
           <DropdownMenu.Item asChild className={item}>
-            <a href={icsUrl(event.eventId)} download>
+            <a href={icsUrl(event.eventId)} download onClick={(e) => { if (import.meta.env.VITE_MOCK) { e.preventDefault(); void downloadIcs(event.eventId); } }}>
               <span className="flex items-center gap-2"><Download className="size-4" strokeWidth={2.4} />Файл .ics</span>
               <span className={hint}>Apple Календарь, Outlook, Яндекс{fileNote ? ` · ${fileNote}` : ""}</span>
             </a>

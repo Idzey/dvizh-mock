@@ -16,6 +16,7 @@ const EVENTS_AHEAD = 10;
 export function useOnline() {
   const [online, setOnline] = useState(() => typeof navigator === "undefined" || navigator.onLine);
   useEffect(() => {
+    if (import.meta.env.VITE_MOCK) return; // мок живёт в странице и от сети не зависит
     const on = () => setOnline(true);
     const off = () => setOnline(false);
     window.addEventListener("online", on);
@@ -25,7 +26,7 @@ export function useOnline() {
       window.removeEventListener("offline", off);
     };
   }, []);
-  return online;
+  return import.meta.env.VITE_MOCK ? true : online;
 }
 
 const get = (url: string) => fetch(url, { credentials: "include" });
@@ -69,6 +70,7 @@ async function prefetch(user: MeResponse) {
 export function OfflinePrefetch({ user }: { user: MeResponse }) {
   const online = useOnline();
   useEffect(() => {
+    if (import.meta.env.VITE_MOCK) return; // в демо API отвечает мок внутри страницы, сырой fetch ему не нужен
     if (!online || !import.meta.env.PROD || !("serviceWorker" in navigator)) return;
     const run = () => void prefetch(user).catch(() => undefined);
     const timer = window.setTimeout(run, 3000);

@@ -36,7 +36,8 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5173,
       // В деве /api идёт на локальный бэкенд, в проде это делает Caddy
-      proxy: { "/api": backendUrl || "http://localhost:8080" },
+      // В демо без бэкенда (mode=mock) /api отвечает мок в браузере, проксировать нечего; картинки по старым путям отдаём из /media
+      proxy: mode === "mock" ? undefined : { "/api": backendUrl || "http://localhost:8080" },
     },
   };
 });

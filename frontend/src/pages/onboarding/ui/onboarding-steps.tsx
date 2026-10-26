@@ -27,7 +27,7 @@ export const PET_NAME_MAX = 20;
 export const SPORTS_MAX = 30;
 const ACTIVITY = "activity";
 /** Общая картинка вида без своей иллюстрации (как у пользовательских видов на сервере). */
-const CUSTOM_SPORT_IMAGE = "/api/sport-images/default.webp";
+const CUSTOM_SPORT_IMAGE = import.meta.env.VITE_MOCK ? "/media/sport-images/default.webp" : "/api/sport-images/default.webp";
 const NONE = "none";
 
 const label = "text-[11px] font-extrabold tracking-[1.5px] text-foreground";
