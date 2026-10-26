@@ -24,17 +24,8 @@ export default function DemoBadge() {
   }, [open]);
 
   return (
-    <div ref={box} className="fixed bottom-20 left-3 z-50 text-[13px] md:bottom-4">
-      {open && (
-        <div className="mb-2 w-72 rounded-2xl border-2 border-ink bg-paper p-4 shadow-hard">
-          <p className="font-extrabold text-ink">Демо-версия «Движа»</p>
-          <p className="mt-1 text-ink/80">
-            Бэкенд отключён: все данные и ваши действия хранятся только в этом браузере. Другие участники отвечают на ваши заявки и вопросы
-            автоматически.
-          </p>
-          <p className="mt-2 text-ink/60">Фото — свободные лицензии Wikimedia Commons и randomuser.me, подробности в CREDITS.</p>
-          <div className="mt-3 flex gap-2">
-            <button
+    <div ref={box} className="fixed left-1 top-1 z-50 text-[13px]">
+      <button
               type="button"
               disabled={busy}
               className="rounded-full border-2 border-ink bg-lemon px-3 py-1 font-extrabold text-ink disabled:opacity-60"
@@ -57,11 +48,20 @@ export default function DemoBadge() {
         aria-label="Демо-версия"
         title="Демо-версия"
         aria-expanded={open}
-        className="grid size-9 place-items-center rounded-full border-2 border-ink bg-ultramarine text-white shadow-hard"
+        className="grid size-6 place-items-center rounded-full bg-ultramarine/60 text-white opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
         onClick={() => setOpen((v) => !v)}
       >
-        <FlaskConical className="size-4" />
+        <FlaskConical className="size-3.5" />
       </button>
-    </div>
+      {open && (
+        <div className="mt-2 w-72 rounded-2xl border-2 border-ink bg-paper p-4 shadow-hard">
+          <p className="font-extrabold text-ink">Демо-версия «Движа»</p>
+          <p className="mt-1 text-ink/80">
+            Бэкенд отключён: все данные и ваши действия хранятся только в этом браузере. Другие участники отвечают на ваши заявки и вопросы
+            автоматически.
+          </p>
+          <p className="mt-2 text-ink/60">Фото — свободные лицензии Wikimedia Commons и randomuser.me, подробности в CREDITS.</p>
+          <div className="mt-3 flex gap-2">
+          </div>
   );
 }
