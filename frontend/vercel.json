@@ -6,7 +6,7 @@
   "rewrites": [
     { "source": "/api/sport-images/:file", "destination": "/media/sport-images/:file" },
     { "source": "/api/achievement-images/:file", "destination": "/media/achievement-images/:file" },
-    { "source": "/((?!api/|media/|assets/|fonts/|icons/|.*\..*).*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     { "source": "/sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
