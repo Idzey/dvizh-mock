@@ -1,4 +1,4 @@
-// Плашка «Демо-версия»: объясняет, что бэкенда нет, и даёт сбросить мир к исходному состоянию.
+// Значок «Демо-версия»: маленькая полупрозрачная иконка; по клику окно с пояснением и сбросом данных.
 import { useEffect, useRef, useState } from "react";
 import { FlaskConical } from "lucide-react";
 import { resetWorld } from "../db";
@@ -26,24 +26,6 @@ export default function DemoBadge() {
   return (
     <div ref={box} className="fixed left-1 top-1 z-50 text-[13px]">
       <button
-              type="button"
-              disabled={busy}
-              className="rounded-full border-2 border-ink bg-lemon px-3 py-1 font-extrabold text-ink disabled:opacity-60"
-              onClick={() => {
-                if (!window.confirm("Сбросить демо? Все ваши записи, встречи и сообщения будут удалены.")) return;
-                setBusy(true);
-                void resetWorld();
-              }}
-            >
-              Сбросить данные
-            </button>
-            <a className="rounded-full border-2 border-ink px-3 py-1 font-extrabold text-ink" href="/media/CREDITS.md" target="_blank" rel="noreferrer">
-              CREDITS
-            </a>
-          </div>
-        </div>
-      )}
-      <button
         type="button"
         aria-label="Демо-версия"
         title="Демо-версия"
@@ -62,6 +44,24 @@ export default function DemoBadge() {
           </p>
           <p className="mt-2 text-ink/60">Фото — свободные лицензии Wikimedia Commons и randomuser.me, подробности в CREDITS.</p>
           <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              disabled={busy}
+              className="rounded-full border-2 border-ink bg-lemon px-3 py-1 font-extrabold text-ink disabled:opacity-60"
+              onClick={() => {
+                if (!window.confirm("Сбросить демо? Все ваши записи, встречи и сообщения будут удалены.")) return;
+                setBusy(true);
+                void resetWorld();
+              }}
+            >
+              Сбросить данные
+            </button>
+            <a className="rounded-full border-2 border-ink px-3 py-1 font-extrabold text-ink" href="/media/CREDITS.md" target="_blank" rel="noreferrer">
+              CREDITS
+            </a>
           </div>
+        </div>
+      )}
+    </div>
   );
 }
