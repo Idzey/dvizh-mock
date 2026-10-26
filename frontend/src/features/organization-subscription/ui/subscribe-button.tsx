@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Bell, Check } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/shared/lib/toast";
 import { useUser } from "@/entity/user/model/use-user";
 import {
   useOrganizationsSubscribe,

@@ -8,6 +8,10 @@ type Kind = "success" | "error" | "info" | "warning";
 type Options = {
   description?: ReactNode;
   duration?: number;
+  /** Свой id: повторный показ с тем же id заменяет тост, а не плодит копии. */
+  id?: string;
+  /** Кнопка под текстом, например «Обновить». */
+  action?: { label: string; onClick: () => void };
 };
 
 const KIND: Record<
@@ -24,11 +28,13 @@ function AppToast({
   kind,
   title,
   description,
+  action,
   onClose,
 }: {
   kind: Kind
   title: ReactNode
   description?: ReactNode
+  action?: Options["action"]
   onClose: () => void
 }) {
   const style = KIND[kind];
@@ -68,6 +74,18 @@ function AppToast({
               {description}
             </p>
           ) : null}
+          {action ? (
+            <button
+              type="button"
+              onClick={() => {
+                action.onClick();
+                onClose();
+              }}
+              className="mt-1.5 w-fit rounded-pill border-2 border-ink bg-primary px-4 py-1 text-sm font-extrabold text-primary-foreground shadow-[2px_2px_0_var(--ink)] transition-transform hover:-translate-y-px"
+            >
+              {action.label}
+            </button>
+          ) : null}
         </div>
       </div>
 
@@ -92,10 +110,11 @@ function show(kind: Kind, title: ReactNode, options: Options = {}) {
         kind={kind}
         title={title}
         description={options.description}
+        action={options.action}
         onClose={() => sonner.dismiss(id)}
       />
     ),
-    { duration: options.duration ?? KIND[kind].duration },
+    { id: options.id, duration: options.duration ?? KIND[kind].duration },
   );
 }
 

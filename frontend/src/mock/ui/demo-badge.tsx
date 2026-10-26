@@ -24,7 +24,7 @@ export default function DemoBadge() {
   }, [open]);
 
   return (
-    <div ref={box} className="fixed left-1 top-1 z-50 text-[13px]">
+    <div ref={box} className="fixed left-1 top-1 z-50 flex flex-col items-start text-[13px] md:bottom-4 md:left-auto md:right-4 md:top-auto md:flex-col-reverse md:items-end">
       <button
         type="button"
         aria-label="Демо-версия"
@@ -36,7 +36,7 @@ export default function DemoBadge() {
         <FlaskConical className="size-3.5" />
       </button>
       {open && (
-        <div className="mt-2 w-72 rounded-2xl border-2 border-ink bg-paper p-4 shadow-hard">
+        <div className="mt-2 w-72 md:mb-2 md:mt-0 rounded-2xl border-2 border-ink bg-paper p-4 shadow-hard">
           <p className="font-extrabold text-ink">Демо-версия «Движа»</p>
           <p className="mt-1 text-ink/80">
             Бэкенд отключён: все данные и ваши действия хранятся только в этом браузере. Другие участники отвечают на ваши заявки и вопросы

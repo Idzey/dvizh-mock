@@ -1,18 +1,14 @@
 import { useEffect } from "react";
-import { toast } from "sonner";
-import { Button } from "@/shared/components/ui/button";
+import { toast } from "@/shared/lib/toast";
 import { listenForPwaInstall } from "@/shared/lib/pwa-install";
 
 function showUpdate() {
-  toast.custom((id) => (
-    <div role="status" className="flex w-[min(92vw,380px)] items-center gap-4 rounded-[20px] border-2 border-ink bg-card p-4 text-foreground shadow-hard">
-      <p className="font-sans text-[15px] font-bold">Доступна новая версия</p>
-      <Button size="sm" onClick={() => {
-        toast.dismiss(id);
-        window.location.reload();
-      }}>Обновить</Button>
-    </div>
-  ), { id: "pwa-update", duration: Infinity });
+  toast.info("Доступна новая версия", {
+    id: "pwa-update",
+    duration: Infinity,
+    description: "Обновите страницу, чтобы получить свежие изменения.",
+    action: { label: "Обновить", onClick: () => window.location.reload() },
+  });
 }
 
 /** SW работает только в production; dev освобождает origin для Vite/HMR. */

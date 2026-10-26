@@ -1,7 +1,7 @@
 import { useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { toast } from "@/shared/lib/toast";
 import type { AlbumFolderResponse, FileResponse, UsersAlbumSort } from "@/shared/api/generated/core/appAPI.schemas";
 import {
   getUsersGetQueryKey,

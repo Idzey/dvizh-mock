@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router";
-import { toast } from "sonner";
+import { toast } from "@/shared/lib/toast";
 import type { AlbumPhotoResponse } from "@/shared/api/generated/core/appAPI.schemas";
 import { useUsersCaptionAlbumPhoto } from "@/shared/api/generated/core/users/users";
 import { Button } from "@/shared/components/ui/button";

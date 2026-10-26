@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { toast } from "sonner";
+import { toast } from "@/shared/lib/toast";
 import type { AlbumPhotoResponse, UsersAlbumSort } from "@/shared/api/generated/core/appAPI.schemas";
 import { useUsersRemoveAlbumPhoto } from "@/shared/api/generated/core/users/users";
 import { Button } from "@/shared/components/ui/button";

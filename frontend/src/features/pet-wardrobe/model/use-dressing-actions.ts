@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { toast as appToast } from "@/shared/lib/toast";
 import {
   getPetsBundlesQueryKey,
   getPetsGetMineQueryKey,
@@ -80,7 +81,7 @@ export function useDressingActions(onSaved: (look: Look) => void) {
       if (result.status !== 200) return false;
       onSaved(result.data);
       await refresh();
-      toast.success("Образ сохранён");
+      appToast.success("Образ сохранён");
       return true;
     } catch {
       return false;
@@ -95,7 +96,7 @@ export function useDressingActions(onSaved: (look: Look) => void) {
         data: { name, activity: look.activity, outfit: look.outfit },
       });
       await refresh();
-      toast.success("Образ добавлен в «Мои образы»");
+      appToast.success("Образ добавлен в «Мои образы»");
       return true;
     } catch {
       return false;
@@ -108,7 +109,7 @@ export function useDressingActions(onSaved: (look: Look) => void) {
     try {
       await removeLook.mutateAsync({ id });
       await refresh();
-      toast.success("Образ удалён");
+      appToast.success("Образ удалён");
     } catch {
       /* detail below */
     } finally {

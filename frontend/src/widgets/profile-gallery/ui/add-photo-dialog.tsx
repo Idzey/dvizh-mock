@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Check, Upload } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/shared/lib/toast";
 import { useUsersAddAlbumPhoto, useUsersAlbumEligibleEvents } from "@/shared/api/generated/core/users/users";
 import { Button } from "@/shared/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/shared/components/ui/dialog";
